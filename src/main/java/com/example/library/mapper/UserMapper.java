@@ -19,8 +19,10 @@ public interface UserMapper extends BaseMapper<Users> {
     @Select({"<script>",
             "SELECT * FROM users ",
             "<where>",
-            "<if test = 'username != null and username != 0' >username &lt; #{username}</if>",
+            "<if test = 'username != null' >username = #{username}</if>",
             "</where>",
             "</script>"})
     Users findByUsername(String username);
+
+
 }
