@@ -2,6 +2,7 @@ package com.example.library.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.example.library.entity.Users;
+import com.example.library.exception.ExceptionHandle;
 import com.example.library.service.UserService;
 import com.example.library.util.CodeEnum;
 import com.example.library.util.Constants;
@@ -11,6 +12,7 @@ import com.example.library.vo.UserOut;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,18 +31,28 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ExceptionHandle exceptionHandle;
+
     @ApiOperation("用户详情")
     @GetMapping("/detail")
     public Result userDetail(Integer id) {
-        Users user =  userService.userDetail(id);
-        if(null!=user){
-            UserOut out = new UserOut();
-            BeanUtils.copyProperties(user,out);
-            out.setBirth(DateUtil.format(user.getBirthday(), Constants.DATE_FORMAT));
-            out.setIdent(ConvertUtil.identStr(user.getIdentity()));
-            out.setPassword(null);
-            return Result.success(CodeEnum.SUCCESS,out);
+        Result result = new Result();
+        try {
+            Users user =  userService.userDetail(id);
+            if(null!=user){
+                UserOut out = new UserOut();
+                BeanUtils.copyProperties(user,out);
+                out.setBirth(DateUtil.format(user.getBirthday(), Constants.DATE_FORMAT));
+                out.setIdent(ConvertUtil.identStr(user.getIdentity()));
+                out.setPassword(null);
+                result = Result.success(CodeEnum.SUCCESS,out);
+            }else{
+                result = Result.fail(CodeEnum.USER_NOT_FOUND);
+            }
+        } catch (BeansException e) {
+            result = exceptionHandle.exceptionGet(e);
         }
-        return Result.fail(CodeEnum.USER_NOT_FOUND);
+        return result;
     }
 }
