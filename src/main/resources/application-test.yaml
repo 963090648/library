@@ -1,0 +1,29 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /library
+spring:
+  application:
+    name: library
+  datasource:
+    driver-class-name: org.h2.Driver
+    schema: classpath:db/schema-h2.sql
+    data: classpath:db/data-h2.sql
+    # No restrictions on table names
+    url: jdbc:h2:F:/H2/db/db02
+    # No restrictions on username and password
+    username: root
+    password: root
+    platform: h2
+  h2:
+    console:
+      # 开启web控制台
+      enabled: true
+      # 访问路径url+/h2
+      path: /h2
+      settings:
+        web-allow-others: true
+#mybatis
+mybatis:
+  type-aliases-package: com.pdh.entity
+  mapper-locations: classpath:/mybatis/*.xml
