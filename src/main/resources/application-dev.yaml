@@ -1,13 +1,14 @@
 server:
   port: 8081
+#开启springboot对静态资源的访问
+resources:
+  static-locations:
+    - classpath:/static/
 spring:
-
   mvc:
     pathmatch:
       #Springfox使用的路径匹配是基于AntPathMatcher的，而Spring Boot 2.6.X使用的是PathPatternMatcher。
       matching-strategy: ant_path_matcher
-      #放开springboot对静态资源的拦截
-      #static-path-pattern: /static/**
   datasource:
     driver-class-name: org.h2.Driver
     schema: classpath:db/schema-h2.sql
