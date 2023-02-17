@@ -2,7 +2,9 @@ package com.example.library.entity;
 
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -15,7 +17,8 @@ import java.util.Date;
  *@author: yubin
  *@create: 2023-02-15 17:26
  */
-
+@Data
+@TableName(value = "borrow") //访问h2数据库
 public class Borrow {
 
     @Id

@@ -96,13 +96,16 @@ public class UserService  implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 查找用户
         Users user = userMapper.findByUsername(username);
-        // 获得角色
-        String role = String.valueOf(user.getIsAdmin());
-        // 角色集合
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        // 角色必须以`ROLE_`开头，数据库中没有，则在这里加
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
-        // 数据库密码是明文, 需要加密进行比对
-        return new User(user.getUsername(), new BCryptPasswordEncoder().encode(user.getPassword()), authorities);
+        if(null!=user){
+            // 获得角色
+            String role = String.valueOf(user.getIsAdmin());
+            // 角色集合
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            // 角色必须以`ROLE_`开头，数据库中没有，则在这里加
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+            // 数据库密码是明文, 需要加密进行比对
+            return new User(user.getUsername(), new BCryptPasswordEncoder().encode(user.getPassword()), authorities);
+        }
+        return null;
     }
 }

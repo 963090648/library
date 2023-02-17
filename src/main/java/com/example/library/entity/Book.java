@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 
 import javax.persistence.*;
@@ -16,10 +17,9 @@ import java.util.Date;
  *@author: yubin
  *@create: 2023-02-15 17:26
  */
-@Entity
-@TableName(value = "book")
+@Data
+@TableName(value = "book") //访问h2数据库
 public class Book {
-
 
     @Id
     @ApiModelProperty("主键ID")
