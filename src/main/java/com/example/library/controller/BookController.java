@@ -50,7 +50,7 @@ public class BookController {
 
     @ApiOperation("图书详情")
     @GetMapping("/detail")
-    public Result bookDetail(Integer id) {
+    public Result bookDetail(Long id) {
         return Result.success(CodeEnum.SUCCESS,bookService.findBookById(id));
     }
 

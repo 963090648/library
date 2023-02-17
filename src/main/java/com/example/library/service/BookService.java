@@ -51,7 +51,7 @@ public class BookService {
      * @param id 主键
      * @return 图书详情
      */
-    public BookOut findBookById(Integer id) {
+    public BookOut findBookById(Long id) {
         Book book = bookMapper.selectById(id);
         if (null!=book) {
             BookOut out = new BookOut();
@@ -62,7 +62,7 @@ public class BookService {
         return null;
     }
 
-    public Book findBook(Integer id) {
+    public Book findBook(Long id) {
         Book book = bookMapper.selectById(id);
         if (null!=book) {
             return book;

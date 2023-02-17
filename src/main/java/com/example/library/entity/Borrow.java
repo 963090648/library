@@ -24,15 +24,15 @@ public class Borrow {
     @Id
     @ApiModelProperty("主键ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty("图书编码")
     @TableField(value = "isbn")
-    private Integer userId;
+    private Long userId;
 
     @ApiModelProperty("图书ID")
     @TableField(value = "isbn")
-    private Integer bookId;
+    private Long bookId;
 
     @ApiModelProperty("借阅时间")
     @TableField(value = "isbn")

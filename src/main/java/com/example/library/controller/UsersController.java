@@ -118,7 +118,7 @@ public class UsersController {
 
     @ApiOperation("用户详情")
     @GetMapping("/detail")
-    public Result userDetail(Integer id) {
+    public Result userDetail(Long id) {
         Result result = new Result();
         try {
             Users user =  userService.userDetail(id);

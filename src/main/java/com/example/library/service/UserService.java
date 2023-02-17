@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *@program: library
@@ -32,6 +33,18 @@ public class UserService  implements UserDetailsService {
 
     @Autowired
     private UserMapper userMapper;
+    /**
+     * 用户详情
+     * @param id 主键
+     * @return 用户详情
+     */
+    public Users findUserById(Long id) {
+        Users users = userMapper.selectById(id);
+        if (null!=users) {
+            return users;
+        }
+        return null;
+    }
 
     /**
      * 添加用户
@@ -74,7 +87,7 @@ public class UserService  implements UserDetailsService {
      * @param id
      * @return
      */
-    public Users userDetail(Integer id) {
+    public Users userDetail(Long id) {
         return userMapper.selectById(id);
     }
 

@@ -24,7 +24,7 @@ public class Book {
     @Id
     @ApiModelProperty("主键ID")
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty("图书ISBN编码")
     @TableField(value = "isbn")
