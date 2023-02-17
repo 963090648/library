@@ -74,7 +74,7 @@ public class UsersController {
             return Result.fail(CodeEnum.PARAM_ERROR);
         }
         // 设置管理员权限
-        users.setIsAdmin(0);
+        users.setIsAdmin(users.getIdentity());
         return Result.success(CodeEnum.SUCCESS,userService.addUser(users));
     }
 

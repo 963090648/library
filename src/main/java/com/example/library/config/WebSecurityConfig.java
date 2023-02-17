@@ -36,6 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //请求授权
                 .authorizeRequests()
+                .antMatchers("/book/**").hasRole("3")
+                .antMatchers("/user/**").hasRole("3")
                 //在访问我们的URL时，我们是不需要省份认证，可以立即访问
                 .antMatchers("/javaex/**","/","/favicon.ico","/login","/user/login").permitAll()
                 //所有请求都被拦截，都需认证
@@ -51,7 +53,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //SpringSecurity保护机制
                 .and()
                 .csrf().disable();
-
         // 开启记住我功能
         http.rememberMe().rememberMeParameter("remember");
     }
