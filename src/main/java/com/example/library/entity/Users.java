@@ -28,7 +28,7 @@ public class Users {
 
     @ApiModelProperty("地址")
     @TableField(value = "address")
-    private String name;
+    private String address;
 
     @ApiModelProperty("可借数量")
     @TableField(value = "size")

@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -31,5 +32,24 @@ public class RouteController {
     @RequestMapping({"/index"})
     public String toIndex() {
         return "index";
+    }
+
+    /**
+     * 跳转欢迎页面
+     */
+    @ApiOperation("跳转欢迎页面")
+    @RequestMapping({"/welcome"})
+    public String toWelcome() {
+        return "welcome";
+    }
+
+    /**
+     * 二级路由跳转
+     * @param name 映射名称
+     */
+    @ApiOperation("二级路由跳转")
+    @RequestMapping("/{filename}/{name}")
+    public String change(@PathVariable String filename, @PathVariable String name) {
+        return filename+"/"+name;
     }
 }
