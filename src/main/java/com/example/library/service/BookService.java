@@ -91,7 +91,7 @@ public class BookService {
      * @param id 主键
      * @return true or false
      */
-    public void deleteBook(Integer id) {
+    public void deleteBook(Long id) {
         bookMapper.deleteById(id);
     }
 

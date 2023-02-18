@@ -15,6 +15,7 @@ public enum CodeEnum {
     BOOK_NOT_ENOUGH(301,"图书库存不够,无法借阅!"),
     /** 用户可借数量不够,无法借阅! */
     USER_NOT_ENOUGH(302,"用户可借数量不够,无法借阅!"),
+    BOOK_CANT_DELETE(303,"图书已被借阅,无法删除!"),
     /** 找不到资源 */
     NOT_FOUND(404,"找不到资源!"),
     /** 请求参数错误 */

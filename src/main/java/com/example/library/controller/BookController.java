@@ -1,7 +1,9 @@
 package com.example.library.controller;
 
 import com.example.library.entity.Book;
+import com.example.library.entity.Borrow;
 import com.example.library.service.BookService;
+import com.example.library.service.BorrowService;
 import com.example.library.util.CodeEnum;
 import com.example.library.util.Result;
 import com.example.library.vo.PageIn;
@@ -9,6 +11,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  *@program: library
@@ -21,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/book")
 public class BookController {
 
+    @Autowired
+    private BorrowService borrowService;
 
     @Autowired
     private BookService bookService;
@@ -62,7 +68,11 @@ public class BookController {
 
     @ApiOperation("删除图书")
     @GetMapping("/delete")
-    public Result delBook(Integer id) {
+    public Result delBook(Long id) {
+        List<Borrow> borrows = borrowService.findAllBorrowByBookId(id);
+        if(null!=borrows&&borrows.size()>0){
+            return Result.fail(CodeEnum.BOOK_CANT_DELETE);
+        }
         bookService.deleteBook(id);
         return Result.success(CodeEnum.SUCCESS);
     }

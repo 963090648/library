@@ -45,6 +45,14 @@ public interface BorrowMapper extends BaseMapper<Borrow> {
     @Select({"SELECT * FROM borrow where `user_id` =#{userId}  "})
     List<Borrow> findAllBorrowByUserId(Long userId);
 
+    /**
+     * 根据图书id查询借阅信息
+     * @param bookId 图书id
+     * @return
+     */
+    @Select({"SELECT * FROM borrow where `book_id` =#{bookId}  "})
+    List<Borrow> findAllBorrowByBookId(Long bookId);
+
     @Insert({"INSERT INTO borrow (user_id, book_id, create_time,update_time,end_time,ret) " +
             "VALUES (#{userId}, #{bookId}, #{createTime}, #{updateTime}, #{endTime}, #{ret})"})
     int insertBorrow(Borrow borrow);

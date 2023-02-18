@@ -142,6 +142,10 @@ public class BorrowService {
         return borrowMapper.findBorrowByUserIdAndBookId(userId,bookId);
     }
 
+    public List<Borrow> findAllBorrowByBookId(Long bookId){
+        return borrowMapper.findAllBorrowByBookId(bookId);
+    }
+
     /**
      * 归还书籍, 使用事务保证 ACID
      * @param userId 用户Id

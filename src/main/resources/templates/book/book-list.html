@@ -186,14 +186,17 @@
         $.get("/book/delete",{"id": id},
             function(data){
                 var code = data.code;
+				var msg = data.msg;
                 if (code == 200) {
                     javaex.message({
                         content : "删除成功",
                         type : "success"
                     });
-
                     // 删除成功, 刷新页面
                     setTimeout(function(){ window.location.reload();},1500)
+				}
+				if(code == 303){
+					alert(msg);
 				}
             });
         // 如果你想阻止弹出层关闭，直接 return false; 即可
