@@ -2,6 +2,7 @@ package com.example.library.controller;
 
 import com.example.library.entity.Book;
 import com.example.library.entity.Borrow;
+import com.example.library.exception.ExceptionHandle;
 import com.example.library.service.BookService;
 import com.example.library.service.BorrowService;
 import com.example.library.util.CodeEnum;
@@ -31,13 +32,15 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private ExceptionHandle exceptionHandle;
+
     @ApiOperation("图书搜索列表")
     @PostMapping("/list")
     public Result getBookList(@RequestBody PageIn pageIn) {
         if (pageIn == null) {
             return Result.fail(CodeEnum.PARAM_ERROR);
         }
-
         return Result.success(CodeEnum.SUCCESS,bookService.getBookList(pageIn));
     }
 
@@ -52,7 +55,6 @@ public class BookController {
     public Result modifyBook(@RequestBody Book book) {
         return Result.success(CodeEnum.SUCCESS,bookService.updateBook(book));
     }
-
 
     @ApiOperation("图书详情")
     @GetMapping("/detail")
@@ -69,11 +71,17 @@ public class BookController {
     @ApiOperation("删除图书")
     @GetMapping("/delete")
     public Result delBook(Long id) {
-        List<Borrow> borrows = borrowService.findAllBorrowByBookId(id);
-        if(null!=borrows&&borrows.size()>0){
-            return Result.fail(CodeEnum.BOOK_CANT_DELETE);
+        Result result = Result.success(CodeEnum.SUCCESS);
+        try {
+            List<Borrow> borrows = borrowService.findAllBorrowByBookId(id);
+            if(null!=borrows&&borrows.size()>0){
+                result = Result.fail(CodeEnum.BOOK_CANT_DELETE);
+            }
+            bookService.deleteBook(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = exceptionHandle.exceptionGet(e);
         }
-        bookService.deleteBook(id);
-        return Result.success(CodeEnum.SUCCESS);
+        return result;
     }
 }
