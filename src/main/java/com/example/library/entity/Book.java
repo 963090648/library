@@ -23,7 +23,7 @@ public class Book {
 
     @Id
     @ApiModelProperty("主键ID")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "ID", type = IdType.AUTO)
     private Long id;
 
     @ApiModelProperty("图书ISBN编码")
@@ -47,6 +47,7 @@ public class Book {
     private String translate;
 
     @ApiModelProperty("出版社")
+    @TableField(value = "publish")
     private String publish;
 
     @ApiModelProperty("单价")
@@ -62,7 +63,7 @@ public class Book {
     private String type;
 
     @ApiModelProperty("出版时间")
-    @TableField(value = "publishTime")
+    @TableField(value = "publish_time")
     private Date publishTime;
 
 }

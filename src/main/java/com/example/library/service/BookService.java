@@ -52,7 +52,7 @@ public class BookService {
      * @return 图书详情
      */
     public BookOut findBookById(Long id) {
-        Book book = bookMapper.selectById(id);
+        Book book = bookMapper.selectKeyId(id);
         if (null!=book) {
             BookOut out = new BookOut();
             BeanUtil.copyProperties(book,out);
@@ -63,7 +63,7 @@ public class BookService {
     }
 
     public Book findBook(Long id) {
-        Book book = bookMapper.selectById(id);
+        Book book = bookMapper.selectKeyId(id);
         if (null!=book) {
             return book;
         }

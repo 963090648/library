@@ -2,6 +2,7 @@ package com.example.library.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.library.entity.Borrow;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -43,4 +44,8 @@ public interface BorrowMapper extends BaseMapper<Borrow> {
      */
     @Select({"SELECT * FROM borrow where `user_id` =#{userId}  "})
     List<Borrow> findAllBorrowByUserId(Long userId);
+
+    @Insert({"INSERT INTO borrow (user_id, book_id, create_time,update_time,end_time,ret) " +
+            "VALUES (#{userId}, #{bookId}, #{createTime}, #{updateTime}, #{endTime}, #{ret})"})
+    int insertBorrow(Borrow borrow);
 }

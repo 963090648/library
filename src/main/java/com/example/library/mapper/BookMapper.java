@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.library.entity.Book;
-import com.example.library.entity.Users;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -37,4 +37,6 @@ public interface BookMapper extends BaseMapper<Book> {
     @Select({"SELECT * FROM book where  `isbn` =#{keyword} "})
     Book findByIsbn(String isbn);
 
+    @Select({"SELECT * FROM book where  `id` =#{id} "})
+    Book selectKeyId(Long id);
 }

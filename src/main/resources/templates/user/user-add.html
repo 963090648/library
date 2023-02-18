@@ -130,6 +130,15 @@
 		isSearch : false
 	});
 
+	javaex.date({
+		id : "birthday",	// 承载日期组件的id
+		isTime : true,
+		date : "2023-02-18 01:01:01",	// 选择的日期
+		// 重新选择日期之后返回一个时间对象
+		callback : function(rtn) {
+		}
+	});
+
 	// 监听点击保存按钮事件
 	$("#save").click(function() {
 		// 表单验证函数

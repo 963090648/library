@@ -2,6 +2,7 @@ package com.example.library.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.example.library.entity.Borrow;
+import com.example.library.exception.ExceptionHandle;
 import com.example.library.service.BookService;
 import com.example.library.service.BorrowService;
 import com.example.library.util.CodeEnum;
@@ -30,7 +31,8 @@ import java.util.List;
 @RequestMapping("/borrow")
 public class BorrowController {
 
-
+    @Autowired
+    private ExceptionHandle exceptionHandle;
     @Autowired
     private BorrowService borrowService;
 
@@ -46,15 +48,23 @@ public class BorrowController {
     @ApiOperation("借阅图书")
     @PostMapping("/add")
     public Result addBorrow(@RequestBody Borrow borrow) {
-        Integer result = borrowService.addBorrow(borrow);
-        if (result == Constants.BOOK_BORROWED) {
-            return Result.success(CodeEnum.BOOK_BORROWED);
-        }else if (result == Constants.USER_SIZE_NOT_ENOUGH) {
-            return Result.success(CodeEnum.USER_NOT_ENOUGH);
-        }else if (result == Constants.BOOK_SIZE_NOT_ENOUGH) {
-            return Result.success(CodeEnum.BOOK_NOT_ENOUGH);
+        Result result = new Result();
+        try {
+            Integer resultInt = borrowService.addBorrow(borrow);
+            if (resultInt == Constants.BOOK_BORROWED) {
+                result = Result.success(CodeEnum.BOOK_BORROWED);
+            }else if (resultInt == Constants.USER_SIZE_NOT_ENOUGH) {
+                result = Result.success(CodeEnum.USER_NOT_ENOUGH);
+            }else if (resultInt == Constants.BOOK_SIZE_NOT_ENOUGH) {
+                result = Result.success(CodeEnum.BOOK_NOT_ENOUGH);
+            }else{
+                result = Result.success(CodeEnum.SUCCESS,Constants.OK);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = exceptionHandle.exceptionGet(e);
         }
-        return Result.success(CodeEnum.SUCCESS,Constants.OK);
+        return result;
     }
 
     @ApiOperation("编辑借阅")
@@ -88,6 +98,9 @@ public class BorrowController {
             for (Borrow borrow : borrows) {
                 BackOut backOut = new BackOut();
                 BookOut out = bookService.findBookById(borrow.getBookId());
+                if(null==out){
+                    continue;
+                }
                 BeanUtils.copyProperties(out,backOut);
 
                 backOut.setBorrowTime(DateUtil.format(borrow.getCreateTime(),Constants.DATE_FORMAT));

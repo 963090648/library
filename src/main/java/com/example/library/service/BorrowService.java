@@ -79,7 +79,7 @@ public class BorrowService {
 
         // 添加借阅信息, 借阅默认为未归还状态
         borrow.setRet(Constants.NO);
-        borrowMapper.insert(borrow);
+        borrowMapper.insertBorrow(borrow);
 
         // 一切正常
         return Constants.OK;

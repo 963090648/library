@@ -56,7 +56,7 @@
 								<a href="javascript:page('welcome');"><i class="icon-home2"></i>首页</a>
 							</li>
 
-							<li class="menu-item">
+							<li class="menu-item" id="bookMan">
                                 <a href="javascript:;">图书管理<i class="icon-keyboard_arrow_left"></i></a>
                                 <ul>
 									<li><a href="javascript:page('book/book-list');">图书列表</a></li>
@@ -73,11 +73,11 @@
 								</ul>
                             </li>
 
-                            <li class="menu-item">
+                            <li class="menu-item" id="readerId">
 								<a href="javascript:;">读者管理<i class="icon-keyboard_arrow_left"></i></a>
 								<ul>
 									<li><a href="javascript:page('reader/reader-list');">读者列表</a></li>
-                                    <li><a href="javascript:page('reader/reader-add');">读者添加</a></li>
+                                    <li id="readerAddId"><a href="javascript:page('reader/reader-add');">读者添加</a></li>
 								</ul>
                             </li>
 
@@ -85,8 +85,8 @@
 								<a href="javascript:;">用户中心<i class="icon-keyboard_arrow_left"></i></a>
 								<ul>
 									<li><a href="javascript:page('user/user-info');">个人信息</a></li>
-                                    <li><a href="javascript:page('user/user-list');">用户管理</a></li>
-                                    <li><a href="javascript:page('user/user-add');">添加管理员</a></li>
+                                    <li id="userListId"><a href="javascript:page('user/user-list');">用户管理</a></li>
+                                    <li id="userManId"><a href="javascript:page('user/user-add');">添加管理员</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -138,6 +138,15 @@
             if (code == 200) {
                 // 设置用户昵称
                 $("#nickname").text(user.nickname);
+				//非管理员，隐藏图书管理和用户管理
+				if(user.isAdmin!='3'){
+					$("#bookMan").hide();
+					$("#userManId").hide();
+					$("#userListId").hide();
+					$("#readerAddId").hide();
+					$("#readerId").hide();
+				}
+
 			}
 
             return false;
