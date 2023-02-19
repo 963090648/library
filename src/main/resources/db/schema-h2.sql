@@ -38,5 +38,5 @@ CREATE TABLE `users` (
                          `password` varchar(255) DEFAULT NULL,
                          `size` int DEFAULT NULL,
                          `tel` varchar(255) DEFAULT NULL,
-                         `username` varchar(255) DEFAULT NULL
+                         `username` varchar(255) unique not NULL
 ) ;

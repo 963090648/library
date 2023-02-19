@@ -151,6 +151,7 @@
 		var size = $("#size").val();
         var identity = $('#select option:selected').val();// 身份
 
+
 		if (nickname == ""||nickname.length>12) {
             javaex.message({
                 content : "昵称不能为空且长度不能大于12",
@@ -209,6 +210,21 @@
                 console.log(e.responseText);
             }
         });
+	});
+
+	// 监听输入框
+	$("#username").bind("input propertychange",function(event){
+		var username = $("#username").val();
+		console.log(username);
+		$.get("/user/findByUsername",{"username": username}, function(data){
+			var data = data.data;
+			var coderes = data.code;
+			console.log(data);
+			if(null!=data){
+				alert("用户名已存在！");
+				return false;
+			}
+		});
 	});
 
 	// 监听点击返回按钮事件

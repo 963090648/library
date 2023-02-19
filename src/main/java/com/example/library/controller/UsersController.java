@@ -50,6 +50,12 @@ public class UsersController {
         return Result.success(CodeEnum.SUCCESS,userService.addUser(users));
     }
 
+    @ApiOperation("添加用户")
+    @GetMapping("/findByUsername")
+    public Result findByUsername( String username) {
+        return Result.success(CodeEnum.SUCCESS,userService.findByUsername(username));
+    }
+
 //    @ApiOperation("添加用户")
 //    @PostMapping("/add")
 //    public R addUsers(@RequestBody Users users) {
